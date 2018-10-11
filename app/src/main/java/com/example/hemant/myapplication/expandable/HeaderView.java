@@ -2,6 +2,7 @@ package com.example.hemant.myapplication.expandable;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hemant.myapplication.R;
@@ -24,6 +25,8 @@ public class HeaderView {
     @Position
     private int mParentPosition;
 
+    @View(R.id.toggleIcon)
+    ImageView toggleIcon;
 
     @View(R.id.header_text)
     TextView headerText;
@@ -35,23 +38,28 @@ public class HeaderView {
         this.mContext = context;
         this.mHeaderText = headerText;
         mParentPosition = 1;
+
     }
 
     @Resolve
     private void onResolve(){
         Log.d(TAG, "onResolve");
         headerText.setText(mHeaderText);
+        if(mParentPosition == 1){
+            toggleIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_keyboard_arrow_up_white_24dp));
+        }else {
+            toggleIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_keyboard_arrow_down_white_24dp));
+        }
     }
 
     @Expand
-    private void onExpand(){
-        Log.d(TAG, "onExpand");
+    public void onExpand() {
+        toggleIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_keyboard_arrow_up_white_24dp));
     }
 
     @Collapse
-    private void onCollapse(){
-        Log.d(TAG, "onCollapse");
+    public void onCollapse() {
+        toggleIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_keyboard_arrow_down_white_24dp));
     }
-
 
 }

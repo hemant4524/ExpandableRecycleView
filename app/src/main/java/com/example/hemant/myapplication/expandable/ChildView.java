@@ -32,6 +32,7 @@ public class  ChildView {
     @View(R.id.rbChecked)
     CheckBox rbChecked;
 
+
     private Context mContext;
     private Movie movie;
 

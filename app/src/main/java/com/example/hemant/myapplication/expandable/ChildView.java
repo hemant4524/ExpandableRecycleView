@@ -9,6 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hemant.myapplication.R;
+import com.example.hemant.myapplication.activity.ExpandableActivity;
+import com.example.hemant.myapplication.activity.ToggleableRadioButton;
 import com.mindorks.placeholderview.annotations.Click;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.Resolve;
@@ -30,17 +32,18 @@ public class  ChildView {
     ImageView childImage;
 
     @View(R.id.rbChecked)
-    CheckBox rbChecked;
+    ToggleableRadioButton rbChecked;
 
 
     private Context mContext;
     private Movie movie;
+    private Communicator communicator;
 
 
-
-    public ChildView(Context mContext, Movie movie) {
+    public ChildView(Context mContext, Movie movie, Communicator communicator) {
         this.mContext = mContext;
         this.movie = movie;
+        this.communicator = communicator;
         AppData.getInstance().addMovie(movie);
     }
 
@@ -60,17 +63,24 @@ public class  ChildView {
 
     @Click(R.id.rbChecked)
     public void onRadioClick(){
-        boolean checked = rbChecked.isChecked();
-        this.movie.setChecked(checked);
-
-        List<Movie> movies = AppData.getInstance().getMovie();
-        for (Movie movie1 : movies) {
-            if(movie1.getId() == movie.getId()){
-                movie1.setChecked(movie.isChecked());
-            }
-        }
 
 
-        Toast.makeText(mContext, "checked:"+checked, Toast.LENGTH_SHORT).show();
+        rbChecked.setChecked(!movie.isChecked());
+        movie.setChecked(!movie.isChecked());
+
+
+        communicator.getMovie(movie);
+
+//        List<Movie> movies = AppData.getInstance().getMovie();
+//        for (Movie movie1 : movies) {
+//            if(movie1.getId() == movie.getId()){
+//                movie1.setChecked(movie.isChecked());
+//            }
+//        }
+
+
+
+
+        Toast.makeText(mContext, "checked:", Toast.LENGTH_SHORT).show();
     }
 }

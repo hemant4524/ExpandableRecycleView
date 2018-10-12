@@ -58,7 +58,7 @@
             card_view:layout_constraintTop_toBottomOf="@+id/child_name"
             tools:text="Small Text" />
 
-        <CheckBox
+        <com.example.hemant.myapplication.activity.ToggleableRadioButton
             android:id="@+id/rbChecked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -12,6 +12,7 @@ import com.example.hemant.myapplication.expandable.ApiClient;
 import com.example.hemant.myapplication.expandable.ApiInterface;
 import com.example.hemant.myapplication.expandable.AppData;
 import com.example.hemant.myapplication.expandable.ChildView;
+import com.example.hemant.myapplication.expandable.Communicator;
 import com.example.hemant.myapplication.expandable.HeaderView;
 import com.example.hemant.myapplication.expandable.Movie;
 import com.mindorks.placeholderview.ExpandablePlaceHolderView;
@@ -27,7 +28,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ExpandableActivity extends AppCompatActivity {
+public class ExpandableActivity extends AppCompatActivity implements Communicator {
 
     private Map<String,List<Movie>> categoryMap;
 
@@ -103,7 +104,7 @@ public class ExpandableActivity extends AppCompatActivity {
             expandablePlaceHolderView.addView(new HeaderView(this, pair.getKey().toString()));
             List<Movie> movieList1 = (List<Movie>) pair.getValue();
             for (Movie movie : movieList1){
-                expandablePlaceHolderView.addView(new ChildView(this, movie));
+                expandablePlaceHolderView.addView(new ChildView(this, movie,this));
             }
             it.remove();
         }
@@ -123,4 +124,9 @@ public class ExpandableActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void getMovie(Movie movie) {
+        String movieName = movie.getName();
+        Toast.makeText(this, movieName, Toast.LENGTH_SHORT).show();
+    }
 }
